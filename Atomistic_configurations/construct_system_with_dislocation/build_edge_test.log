@@ -1,0 +1,70 @@
+LAMMPS (29 Oct 2020)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:94)
+  using 1 OpenMP thread(s) per MPI task
+print "# Absolute path of current working directory on JUWELS Cluster at Juelich Supercomputing Centre" append ./build_edge_test.in screen no
+print "# ** Uncomment the following line to run this input script from any other directory on JUWELS Cluster at Juelich Supercomputing Centre" append ./build_edge_test.in screen no
+print "shell cd /p/home/jusers/nag1/juwels/Some_useful_codes/useful_common_classes/Atomistic_configurations/construct_system_with_dislocation" append ./build_edge_test.in screen no
+shell cd /p/home/jusers/nag1/juwels/Some_useful_codes/useful_common_classes/Atomistic_configurations/construct_system_with_dislocation
+print "
+" append build_edge_test.in screen no
+print "units metal" append build_edge_test.in screen no
+units metal
+print "atom_style atomic" append build_edge_test.in screen no
+atom_style atomic
+print "atom_modify map array" append build_edge_test.in screen no
+atom_modify map array
+print "
+" append build_edge_test.in screen no
+print "boundary p p s" append build_edge_test.in screen no
+boundary p p s
+print "region reg_cuboid block -373.35238046649704 746.7047609329941 -21.555509736491967 21.555509736491967 -182.9045652792734 182.9045652792734 units box" append build_edge_test.in screen no
+region reg_cuboid block -373.35238046649704 746.7047609329941 -21.555509736491967 21.555509736491967 -182.9045652792734 182.9045652792734 units box
+print "create_box 1 reg_cuboid" append build_edge_test.in screen no
+create_box 1 reg_cuboid
+Created orthogonal box = (-373.35238 -21.555510 -182.90457) to (746.70476 21.555510 182.90457)
+  12 by 1 by 4 MPI processor grid
+print "lattice fcc 3.52 origin 0.25 0.08333333333333333 0.16666666666666666 orient x 1 -1 0 orient y 1 1 -2 orient z 1 1 1 spacing 0.7071067811865475 1.224744871391589 1.7320508075688772" append build_edge_test.in screen no
+lattice fcc 3.52 origin 0.25 0.08333333333333333 0.16666666666666666 orient x 1 -1 0 orient y 1 1 -2 orient z 1 1 1 spacing 0.7071067811865475 1.224744871391589 1.7320508075688772
+Lattice spacing in x,y,z = 2.4890159 4.3111019 6.0968188
+print "create_atoms 1 region reg_cuboid " append build_edge_test.in screen no
+create_atoms 1 region reg_cuboid 
+Created 1620000 atoms
+  create_atoms CPU = 0.020 seconds
+print "# 1620000 atoms successfully created." append build_edge_test.in screen no
+print "
+" append build_edge_test.in screen no
+print "# Creating new directory" append build_edge_test.in screen yes
+# Creating new directory
+print """shell "/bin/sh -c 'mkdir -p ./build_system/'"
+""" append build_edge_test.in screen no
+shell "/bin/sh -c 'mkdir -p ./build_system/'"
+print "# Writing the current state to a data file using lammps PythonAPI" append build_edge_test.in screen yes
+# Writing the current state to a data file using lammps PythonAPI
+print "
+" append build_edge_test.in screen no
+print "change_box all x final -377.085904271162 750.438284737659 units box" append build_edge_test.in screen no
+change_box all x final -377.085904271162 750.438284737659 units box
+Changing box ...
+  orthogonal box = (-377.08590 -21.555510 -181.96139) to (750.43828 21.555510 181.96139)
+print "# Resetting atom positions using function scatter_atom of LAMMPS python wrapper" append build_edge_test.in screen yes
+# Resetting atom positions using function scatter_atom of LAMMPS python wrapper
+print "
+" append build_edge_test.in screen no
+print "region block1 block INF -370.8633645967204 INF INF INF INF side in units box" append build_edge_test.in screen no
+region block1 block INF -370.8633645967204 INF INF INF INF side in units box
+print "region block2 block 744.2157450632175 INF INF INF INF INF side in units box" append build_edge_test.in screen no
+region block2 block 744.2157450632175 INF INF INF INF INF side in units box
+print "region block2delete union 2 block1 block2" append build_edge_test.in screen no
+region block2delete union 2 block1 block2
+print "delete_atoms region block2delete compress yes" append build_edge_test.in screen no
+delete_atoms region block2delete compress yes
+Deleted 7200 atoms, new total = 1612800
+print "change_box all x final -370.8633645967204 744.2157450632175 units box" append build_edge_test.in screen no
+change_box all x final -370.8633645967204 744.2157450632175 units box
+Changing box ...
+  orthogonal box = (-370.86336 -21.555510 -181.58604) to (744.21575 21.555510 182.75983)
+print "# Writing the current state to a data file using lammps PythonAPI" append build_edge_test.in screen yes
+# Writing the current state to a data file using lammps PythonAPI
+print "
+" append build_edge_test.in screen no
+Total wall time: 0:00:39

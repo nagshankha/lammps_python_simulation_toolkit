@@ -1,0 +1,36 @@
+# Absolute path of current working directory on JUWELS Cluster at Juelich Supercomputing Centre
+# ** Uncomment the following line to run this input script from any other directory on JUWELS Cluster at Juelich Supercomputing Centre
+shell cd /p/home/jusers/nag1/juwels/Some_useful_codes/useful_common_classes/Atomistic_configurations/construct_system_with_dislocation
+
+
+units metal
+atom_style atomic
+atom_modify map array
+
+
+boundary p p s
+region reg_cuboid block -373.35238046649704 746.7047609329941 -21.555509736491967 21.555509736491967 -182.9045652792734 182.9045652792734 units box
+create_box 1 reg_cuboid
+lattice fcc 3.52 origin 0.25 0.08333333333333333 0.16666666666666666 orient x 1 -1 0 orient y 1 1 -2 orient z 1 1 1 spacing 0.7071067811865475 1.224744871391589 1.7320508075688772
+create_atoms 1 region reg_cuboid 
+# 1620000 atoms successfully created.
+
+
+# Creating new directory
+shell "/bin/sh -c 'mkdir -p ./build_system/'"
+
+# Writing the current state to a data file using lammps PythonAPI
+
+
+change_box all x final -377.085904271162 750.438284737659 units box
+# Resetting atom positions using function scatter_atom of LAMMPS python wrapper
+
+
+region block1 block INF -370.8633645967204 INF INF INF INF side in units box
+region block2 block 744.2157450632175 INF INF INF INF INF side in units box
+region block2delete union 2 block1 block2
+delete_atoms region block2delete compress yes
+change_box all x final -370.8633645967204 744.2157450632175 units box
+# Writing the current state to a data file using lammps PythonAPI
+
+
